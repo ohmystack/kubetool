@@ -114,7 +114,7 @@ list_or_search_one() {
     # Print
     local i
     for i in "${!names[@]}"; do
-      printf "%3d) %s\n" $i "${names[$i]}" >&2
+      printf "%3d) %s\n" $i "${names[$i]##*/}" >&2
     done
     # Pick one
     picked=$(ask_user_string 'Please choose one. Enter the index number:')
