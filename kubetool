@@ -265,7 +265,7 @@ while [ -n "$1" ]; do
       shift 2
 			;;
     '--all'|'--all-namespaces')
-      KUBECTL+=" --all-namespaces"
+      KUBECTL+=" --all-namespaces=true"
 			shift
       ;;
 		'ls')
