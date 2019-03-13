@@ -25,7 +25,7 @@ print_usage() {
 	kt [-n <namespace>] [--all] <action>
 
 	Actions:
-	  ls <kind> [keyword]   | List or search resources
+	  ps <kind> [keyword]   | List or search resources
 	  get <kind> [keyword]  | Search and get a resource by a keyword
 	  desc <kind> [keyword] | Search and describe a resource by a keyword
 	  logs [-f] <keyword>   | Search and fetch the Pod's logs
@@ -154,7 +154,7 @@ list_or_search_one() {
 # Actions
 # -----------------
 
-action_ls() {
+action_ps() {
   local kind=$1
   local keyword=$2
   local opts=(--no-headers=true -o wide)
@@ -268,9 +268,9 @@ while [ -n "$1" ]; do
       KUBECTL+=" --all-namespaces=true"
 			shift
       ;;
-		'ls')
+		'ps')
 			shift
-			action_ls "$@"
+			action_ps "$@"
 			break
 			;;
 		'get')
