@@ -59,7 +59,7 @@ echo_err() {
 ask_user_string() {
 	local answer
 	echo ""
-	read -p "$1 " answer
+	read -p "$1 " answer >&2
 	echo $answer
 }
 
