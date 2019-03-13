@@ -15,7 +15,7 @@ Usage:
 kt [-n <namespace>] [--all] <action>
 
 Actions:
-  ls <kind> [keyword]   | List or search resources
+  ps <kind> [keyword]   | List or search resources
   get <kind> [keyword]  | Search and get a resource by a keyword
   desc <kind> [keyword] | Search and describe a resource by a keyword
   logs [-f] <keyword>   | Search and fetch the Pod's logs
@@ -46,17 +46,17 @@ You can use command-line `kt` or `kubetool`.
 
 ## Usage
 
-### `kt ls` : List + Search
+### `kt ps` : List + Search
 
 Example:
 
 ```bash
 # List all the pods
-$ kt ls pod
+$ kt ps pod
 # Search pods with keyword: hello
-$ kt ls pod hello
+$ kt ps pod hello
 # List other k8s kinds
-$ kt ls deployment hello
+$ kt ps deployment hello
 ```
 
 
