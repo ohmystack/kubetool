@@ -143,7 +143,7 @@ list_or_search_one() {
   done
   # Pick one container
   picked_container=$(ask_user_string 'Multiple containers in this Pod. Please choose one. Enter the index number:')
-  if [ $picked_container -lt 0 ] || [ $picked -ge ${#containers[@]} ] ; then
+  if [ $picked_container -lt 0 ] || [ $picked_container -ge ${#containers[@]} ] ; then
     echo_err 'invalid index'
     exit 1
   fi
