@@ -73,13 +73,13 @@ ask_user_string() {
 list_or_search() {
 	local kind=$1
 	local keyword=$2
-  local opts=(--no-headers=true -o name)
+  local opts=(--no-headers=true)
 
 	local result
   if [ -z "${keyword}" ]; then
-    result=$($KUBECTL get "${opts[@]}" $kind)
+    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}')
   else
-    result=$($KUBECTL get "${opts[@]}" $kind | grep -i $keyword)
+    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}' | grep -i $keyword)
   fi
   echo $result
 }
@@ -104,6 +104,13 @@ list_or_search_one() {
   local names
   local kind=$1
   local keyword=$2
+	# Try to parse keyword from kind_with_keyword. e.g. Parse 'xxx' from 'pod/xxx'
+	local keyword_from_kind="${kind##*/}"
+	if [ $kind != $keyword_from_kind ] && [ -n "${keyword_from_kind}" ] ; then
+		kind="${kind%/*}"
+		keyword=$keyword_from_kind
+	fi
+
   read -a names <<< $(list_or_search $kind $keyword)
 	if [ ${#names[@]} -eq 0 ] ; then
 	  echo_err "no such resource"
@@ -126,13 +133,13 @@ list_or_search_one() {
 	fi
 
 	if ! $container_level ; then
-    echo $pod_name
+    echo $kind $pod_name
     return
   fi
 
   # Container level
   local containers
-  read -a containers <<< $($KUBECTL get $pod_name -o jsonpath='{.spec.containers[*].name}')
+  read -a containers <<< $($KUBECTL get pod $pod_name -o jsonpath='{.spec.containers[*].name}')
   if [ ${#containers[@]} -eq 1 ] ; then
     echo $pod_name
     return
