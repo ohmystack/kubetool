@@ -30,7 +30,7 @@ Other actions:
 
 ```bash
 INSTALL_DIR='/usr/local/bin'
-sudo wget -O ${INSTALL_DIR}/kubetool https://raw.githubusercontent.com/ohmystack/kubetool/master/kubetool
+sudo curl -o ${INSTALL_DIR}/kubetool https://raw.githubusercontent.com/ohmystack/kubetool/master/kubetool
 sudo chmod a+x ${INSTALL_DIR}/kubetool
 sudo ln -sf ${INSTALL_DIR}/kubetool ${INSTALL_DIR}/kt
 ```
