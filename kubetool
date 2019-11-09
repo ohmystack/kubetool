@@ -77,9 +77,9 @@ list_or_search() {
 
 	local result
   if [ -z "${keyword}" ]; then
-    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}')
+    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}' | sort)
   else
-    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}' | grep -i $keyword)
+    result=$($KUBECTL get "${opts[@]}" $kind | awk '{print $1}' | grep -i $keyword | sort)
   fi
   echo $result
 }
@@ -139,7 +139,7 @@ list_or_search_one() {
 
   # Container level
   local containers
-  read -a containers <<< $($KUBECTL get pod $pod_name -o jsonpath='{.spec.containers[*].name}')
+  read -a containers <<< $($KUBECTL get pod $pod_name -o jsonpath='{.spec.containers[*].name}' | sort)
   if [ ${#containers[@]} -eq 1 ] ; then
     echo $pod_name
     return
