@@ -191,14 +191,14 @@ action_ssh() {
   name=${name##*/}  # Drop the prefix kind
 
 	local exit_code
-  $KUBECTL exec -it $name /bin/bash
+  $KUBECTL exec -it $name -- /bin/bash
   exit_code=$?
   if [ ! $exit_code -eq 126 ] ; then  # 126: no such command
     exit $exit_code
   fi
 
   echo_color 64 "- Try to use /bin/sh"
-  $KUBECTL exec -it $name /bin/sh
+  $KUBECTL exec -it $name -- /bin/sh
   exit_code=$?
   if [ ! $exit_code -eq 126 ] ; then
     exit $exit_code
